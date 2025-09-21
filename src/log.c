@@ -18,7 +18,7 @@ static int logfd_file = -1;
 int loglevel = 1;
 char* logfile = "/log/unknown.log";
 
-void log_init(const char* file, const int level) {
+void log_init(const char* file, const log_level_t level) {
     logfile = file;
     loglevel = level;
 }
