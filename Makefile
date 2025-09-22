@@ -1,6 +1,6 @@
 # Compiler and flags
-CXX := g++
-CXXFLAGS := -fPIC -Wall -Wextra -O2 -std=c++17
+CC := gcc
+CFLAGS := -fPIC -Wall -Wextra -O2
 LDFLAGS := -shared
 
 # Directories
@@ -8,8 +8,8 @@ SRC_DIR := src
 BUILD_DIR := build
 
 # Source and object files
-SRCS := $(wildcard $(SRC_DIR)/*.cpp)
-OBJS := $(patsubst $(SRC_DIR)/%.cpp,$(BUILD_DIR)/%.o,$(SRCS))
+SRCS := $(wildcard $(SRC_DIR)/*.c)
+OBJS := $(patsubst $(SRC_DIR)/%.c,$(BUILD_DIR)/%.o,$(SRCS))
 
 # Targets
 TARGET_SO := $(BUILD_DIR)/liblog.so
@@ -20,15 +20,15 @@ all: $(TARGET_SO) $(TARGET_A)
 
 # Shared library
 $(TARGET_SO): $(OBJS)
-	$(CXX) $(LDFLAGS) -o $@ $^
+	$(CC) $(LDFLAGS) -o $@ $^
 
 # Static library
 $(TARGET_A): $(OBJS)
 	ar rcs $@ $^
 
-# Compile .cpp to .o
-$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp | $(BUILD_DIR)
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+# Compile .c to .o
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c | $(BUILD_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@
 
 # Ensure build directory exists
 $(BUILD_DIR):
