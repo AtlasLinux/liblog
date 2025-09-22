@@ -75,15 +75,14 @@ void log_console_level(log_level_t level, const char *fmt, ...) {
 
     if (logfd_console >= 0) {
         va_start(ap, fmt);
-        dprintf(logfd_console, "%s%s [%s] ", level_colours[level], ts, level_names[level]);
+        dprintf(logfd_console, "%s%s %s[%s]%s ", colour_reset, ts, level_colours[level], level_names[level], colour_reset);
         vdprintf(logfd_console, fmt, ap);
-        dprintf(logfd_console, "%s", colour_reset);
         va_end(ap);
     }
 
     if (logfd_file >= 0) {
         va_start(ap, fmt);
-        dprintf(logfd_file, "%s [%s] ", ts, level_names[level]);
+        dprintf(logfd_file, "%s%s %s[%s]%s ", colour_reset, ts, level_colours[level], level_names[level], colour_reset);
         vdprintf(logfd_file, fmt, ap);
         va_end(ap);
     }
