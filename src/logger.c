@@ -102,7 +102,7 @@ void logger_log(Logger* logger, LogLevel level, const char* fmt, ...) {
     va_end(args);
     
     char line[2048];
-    snprintf(line, sizeof(line), "%s [%s] %s\n", timestamp, log_level_to_string(level), message);
+    snprintf(line, sizeof(line), "%s [%s] %s", timestamp, log_level_to_string(level), message);
     
     pthread_mutex_lock(&logger->mu);
     for (size_t i = 0; i < logger->sink_count; i++) {
